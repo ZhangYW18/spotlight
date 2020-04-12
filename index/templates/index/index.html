@@ -1,0 +1,57 @@
+{% load static %}
+<!doctype html>
+<html lang="en">
+<head>
+    <!-- Required meta tags -->
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+    <!-- 上述meta标签*必须*放在最前面，任何其他内容都*必须*跟随其后！ -->
+    <!-- Bootstrap CSS -->
+    <link href="https://cdn.bootcss.com/twitter-bootstrap/4.3.1/css/bootstrap.min.css" rel="stylesheet">
+    <link href="{% static 'index/css/index.css' %}" rel="stylesheet"/>
+    <title>SpotLight</title>
+</head>
+<body>
+<div class="container">
+    <div class="col">
+        <form class="form-login" action="/analyse/" method="post">
+            <h1 class="text-center">SpotLight: I Know Your Heart.</h1>
+            <h5 class="text-center">Enter short sentences below and we will judge you are happy or sad.</h5>
+            <div class="form-group">
+                <span style="font-size:18px;">
+                    You have typed <span id="counter">0</span> words.<br/>
+                    <textarea class="form-control" rows="4" maxlength=140
+                              style="border: 1px; resize: none; width: 100%; background-color: #eee" id="postWeiboText" onkeydown='countChar("postWeiboText","counter");'
+                              onkeyup='countChar("postWeiboText","counter");'
+                              name="weiboCustom.content"></textarea></span>
+                        <!--用来存放item-->
+            </div>
+            <div id="sendButton">
+                <button type="submit" class="btn btn-primary float-right">
+                    Test it!
+                </button>
+            </div>
+        </form>
+    </div>
+</div> <!-- /container -->
+
+<script>
+    function countChar(textareaName,spanName) {
+        var s = document.getElementById(textareaName).value;
+        s = s.replace(/(^\s*)|(\s*$)/gi,"");    // exclude start and end white-space
+        s = s.replace(/[ ]{2,}/gi," ");         // 2 or more space to 1
+        s = s.replace(/\n /,"\n");              // exclude newline with a start spacing
+        s = s.replace("\n"," ");
+        var count = s.split(' ').filter(function(str){return str!="";}).length.toString();
+        document.getElementById(spanName).innerHTML = count;
+    }
+</script>
+
+<!-- Optional JavaScript -->
+<!-- jQuery first, then Popper.js, then Bootstrap JS -->
+<script src="https://cdn.bootcss.com/jquery/3.3.1/jquery.js"></script>
+<script src="https://cdn.bootcss.com/popper.js/1.15.0/umd/popper.js"></script>
+<script src="https://cdn.bootcss.com/twitter-bootstrap/4.3.1/js/bootstrap.min.js"></script>
+
+</body>
+</html>
