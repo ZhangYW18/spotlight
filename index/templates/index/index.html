@@ -14,29 +14,48 @@
 <body>
 <div class="container">
     <div class="col">
-        <form class="form-login" action="/analyse/" method="post">
+        <form class="form-login" action="" method="post">
+            {% csrf_token %}
             <h1 class="text-center">SpotLight: I Know Your Heart.</h1>
             <h5 class="text-center">Enter short sentences below and we will judge you are happy or sad.</h5>
             <div class="form-group">
                 <span style="font-size:18px;">
-                    You have typed <span id="counter">0</span> words.<br/>
+                    You have typed <span id="counter">{{ input_length|default:0 }}</span> words.<br/>
                     <textarea class="form-control" rows="4" maxlength=140
-                              style="border: 1px; resize: none; width: 100%; background-color: #eee" id="postWeiboText" onkeydown='countChar("postWeiboText","counter");'
-                              onkeyup='countChar("postWeiboText","counter");'
-                              name="weiboCustom.content"></textarea></span>
-                        <!--用来存放item-->
+                              style="border: 1px; resize: none; width: 100%; background-color: #eee"
+                              id="postWeiboText" onkeydown='countChar("postWeiboText","counter");'
+                              onkeyup='countChar("postWeiboText","counter");' autocomplete="on"
+                              name="text">{{ input|default:"" }}</textarea></span>
             </div>
+
             <div id="sendButton">
                 <button type="submit" class="btn btn-primary float-right">
                     Test it!
                 </button>
             </div>
+
+            <p>The sentiment of your text is: {{ label|default:"" }}</p>
+
+            {% if label %}
+
+            <div id="feedback">
+                <label>Not a good guess? Tell us and SpotLight will train itself to be smarter.</label>
+                <button id="sendFeedbackButton" type="button" onclick="sendFeedbeck()"
+                        class="btn btn-primary">
+                    Send Feedback
+                </button>
+            </div>
+
+            {% endif %}
+
         </form>
+
     </div>
 </div> <!-- /container -->
 
 <script>
     function countChar(textareaName,spanName) {
+<!--        document.getElementById("sendFeedbackButton").disabled = "disabled";-->
         var s = document.getElementById(textareaName).value;
         s = s.replace(/(^\s*)|(\s*$)/gi,"");    // exclude start and end white-space
         s = s.replace(/[ ]{2,}/gi," ");         // 2 or more space to 1
@@ -55,3 +74,4 @@
 
 </body>
 </html>
+
