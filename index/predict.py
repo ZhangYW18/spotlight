@@ -27,9 +27,10 @@ EPOCHS = 8
 BATCH_SIZE = 1024
 
 
-print('load models...')
+print('loading models...')
+model = load_model('/Users/victor/Git/my/spotlight/index/static/models/model-formal.h5')
+model._make_predict_function()
 tokenizer = pickle.load(open('/Users/victor/Git/my/spotlight/index/static/models/tokenizer.pkl', 'rb'))
-model = load_model('/Users/victor/Git/my/spotlight/index/static/models/model.h5')
 print('load success!')
 
 
