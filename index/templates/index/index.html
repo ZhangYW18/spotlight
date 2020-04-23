@@ -1,11 +1,11 @@
 {% load static %}
 <!doctype html>
 <html lang="en">
+<!--<link rel="shortcut icon" href="{% static 'index/images/favicon.ico' %}">-->
 <head>
     <!-- Required meta tags -->
     <meta charset="utf-8">
     <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
-    <!-- 上述meta标签*必须*放在最前面，任何其他内容都*必须*跟随其后！ -->
     <!-- Bootstrap CSS -->
     <link href="https://cdn.bootcss.com/twitter-bootstrap/4.3.1/css/bootstrap.min.css" rel="stylesheet">
     <link href="{% static 'index/css/index.css' %}" rel="stylesheet"/>
@@ -28,25 +28,30 @@
                               name="text">{{ input|default:"" }}</textarea></span>
             </div>
 
-            <div id="sendButton">
-                <button type="submit" class="btn btn-primary float-right">
-                    Test it!
-                </button>
+
+            <div id="feedback" style="background-color: rgba(255,255,255,0.4)">
+
+                <div id="sendButton">
+                    <button type="submit" class="btn btn-primary float-right">
+                        Test it!
+                    </button>
+                </div>
+
+                {% if label %}
+                    <p>The sentiment of your text is: {{ label|default:"" }}</p>
+                    <label>Not a good guess? Tell us the sentiment of your sentences and SpotLight will be smarter.</label>
+                    <select id="feedbackSelect">
+                        <option value=1>Positive</option>
+                        <option value=0>Negative</option>
+                    </select>
+                    <button id="sendFeedbackButton" type="button" onclick="sendFeedback()"
+                            class="btn btn-primary">
+                        Send Feedback
+                    </button>
+                {% endif %}
+
             </div>
 
-            <p>The sentiment of your text is: {{ label|default:"" }}</p>
-
-            {% if label %}
-
-            <div id="feedback">
-                <label>Not a good guess? Tell us and SpotLight will train itself to be smarter.</label>
-                <button id="sendFeedbackButton" type="button" onclick="sendFeedbeck()"
-                        class="btn btn-primary">
-                    Send Feedback
-                </button>
-            </div>
-
-            {% endif %}
 
         </form>
 
@@ -63,6 +68,26 @@
         s = s.replace("\n"," ");
         var count = s.split(' ').filter(function(str){return str!="";}).length.toString();
         document.getElementById(spanName).innerHTML = count;
+    }
+
+    function sendFeedback() {
+            var feedback=document.getElementById("feedbackSelect").value;
+            $.ajax({
+                url:"/train",
+                type:"get",
+                data:{
+                    text: "{{ input|default:"" }}",
+                    feedback: feedback
+                },
+                success:function(result){
+                    console.log(result);
+                    console.log("success");
+                    alert("Send feedback successfully. Thank you!");
+                },
+                error:function(){
+                    alert("Network Error");
+                }
+            })
     }
 </script>
 

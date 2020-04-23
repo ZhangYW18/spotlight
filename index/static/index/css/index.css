@@ -35,6 +35,10 @@ body {
     margin-top:40px;
 }
 
+.feedback {
+    background-color:#000000;
+}
+
 form a{
     display: inline-block;
     margin-top:25px;

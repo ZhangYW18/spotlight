@@ -22,6 +22,10 @@ def index(request):
     return render(request, 'index/index.html')
 
 
-def train(request):
-    train(x, y)
+def train_feedback(request):
+    text = request.GET.get('text', default='')
+    feedback = request.GET.get('feedback')
+    print('text', text)
+    print('feedback', feedback)
+    train(text, feedback)
     return render(request, 'index/index.html')

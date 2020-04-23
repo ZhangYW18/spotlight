@@ -3,10 +3,8 @@ import time
 import pickle
 from keras.models import load_model
 
-import pandas as pd
 import re
 
-from keras.preprocessing.text import Tokenizer
 from keras.preprocessing.sequence import pad_sequences
 from nltk import SnowballStemmer
 from nltk.corpus import stopwords
@@ -24,11 +22,10 @@ NEUTRAL = 'Neutral'
 SEQUENCE_LENGTH = 300
 
 EPOCHS = 8
-BATCH_SIZE = 1024
 
 
 print('loading models...')
-model = load_model('/Users/victor/Git/my/spotlight/index/static/models/model-formal.h5')
+model = load_model('/Users/victor/Git/my/spotlight/index/static/models/models.h5')
 model._make_predict_function()
 tokenizer = pickle.load(open('/Users/victor/Git/my/spotlight/index/static/models/tokenizer.pkl', 'rb'))
 print('load success!')
@@ -45,7 +42,7 @@ def preprocess(tweet):
     return " ".join(tokens)
 
 
-def decode_sentiment(score, include_neutral=True, threshold=0.6):
+def decode_sentiment(score, include_neutral=True, threshold=0.65):
     if include_neutral:
         label = NEUTRAL
         if score <= 1-threshold:
@@ -72,13 +69,15 @@ def predict(input, include_neutral=True):
             "elapsed_time": time.time() - start_at}
 
 
-def train(x, y):
+def train(input, feedback):
+    input_processed = preprocess(input)
+    text = str(input_processed).split()
+    x = pad_sequences(tokenizer.texts_to_sequences([text]), maxlen=SEQUENCE_LENGTH)
+    y = [int(feedback)]
+#    y = y.reshape(-1, 1)
     global model
-    model.fit(x, y,
-              batch_size=BATCH_SIZE,
-              epochs=EPOCHS,
-              validation_split=0.1,
-              verbose=1)
+    print('training...')
+    model.fit([x], y, epochs=EPOCHS)
 
 
 if __name__ == '__main__':
