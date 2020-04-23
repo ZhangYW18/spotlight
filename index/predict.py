@@ -2,6 +2,7 @@ import os
 import time
 import pickle
 from keras.models import load_model
+from spotlight.settings import BASE_DIR
 
 import re
 
@@ -25,9 +26,9 @@ EPOCHS = 8
 
 
 print('loading models...')
-model = load_model('/Users/victor/Git/my/spotlight/index/static/models/model.h5')
+model = load_model(os.path.join(BASE_DIR, 'index/static/models/model.h5'))
 model._make_predict_function()
-tokenizer = pickle.load(open('/Users/victor/Git/my/spotlight/index/static/models/tokenizer.pkl', 'rb'))
+tokenizer = pickle.load(open(os.path.join(BASE_DIR, 'index/static/models/tokenizer.pkl'), 'rb'))
 print('load success!')
 
 
