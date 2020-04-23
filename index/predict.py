@@ -25,7 +25,7 @@ EPOCHS = 8
 
 
 print('loading models...')
-model = load_model('/Users/victor/Git/my/spotlight/index/static/models/models.h5')
+model = load_model('/Users/victor/Git/my/spotlight/index/static/models/model.h5')
 model._make_predict_function()
 tokenizer = pickle.load(open('/Users/victor/Git/my/spotlight/index/static/models/tokenizer.pkl', 'rb'))
 print('load success!')
