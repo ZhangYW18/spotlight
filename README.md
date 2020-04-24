@@ -8,7 +8,7 @@ It is super smart and can learn from your feedbacks.
 
 [Twitter Sentiment Analysis](https://github.com/ZhangYW18/AppliedTextMining)
 
-If you intend to run spotlight on your own machine, you may need to produce model.h5/tokenizer.pkl using this repo first and put it under index/static/models first.
+If you intend to run spotlight on your own machine, you may need to produce model.h5 and tokenizer.pkl using this repo first and put it under path index/static/models.
 
 ## Examples
 
