@@ -4,7 +4,7 @@ SpotLight is a wondeful web system that can guess the sentiment which hides behi
 
 It is super smart and can learn from your feedbacks.
 
-## Related Repository
+## Related Repository - Machine Learning Part
 
 [Twitter Sentiment Analysis](https://github.com/ZhangYW18/AppliedTextMining)
 
