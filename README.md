@@ -4,7 +4,9 @@ SpotLight is a wondeful web system that can guess the sentiment which hides behi
 
 It is super smart and can learn from your feedbacks.
 
-## Related Repository - Machine Learning Part
+## Running SpotLight Locally
+
+### 1. Related Repository - Machine Learning Part
 
 [Twitter Sentiment Analysis](https://github.com/ZhangYW18/AppliedTextMining)
 
@@ -12,6 +14,13 @@ If you intend to run spotlight on your own machine, you may need to produce mode
 
 Link:https://pan.baidu.com/s/1CJkDQPuAAdHkH6DFGUHKNw  
 Password:1qay
+
+### 2. Run SpotLight in Terminal
+Run the following command in the project root folder:
+```shell script
+$ python manage.py runserver
+```
+
 
 
 ## Examples
