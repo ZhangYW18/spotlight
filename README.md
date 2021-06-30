@@ -1,6 +1,6 @@
 # SpotLight - I Know Your Heart
 
-SpotLight is a wondeful web system that can guess the sentiment which hides behind your words.
+SpotLight is a wondeful web page that can guess the sentiment which hides behind your words.
 
 It is super smart and can learn from your feedbacks.
 
